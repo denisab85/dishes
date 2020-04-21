@@ -12,19 +12,18 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Getter
 public class Cuisine {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	@Getter
 	@Setter
 	private String name;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(referencedColumnName = "id")
-	@Getter
 	@Setter
 	private Cuisine parentCuisine;
 

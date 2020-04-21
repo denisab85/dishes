@@ -14,3 +14,17 @@ INSERT INTO `dishes`.`cuisine` (`id`,`name`,`parent_cuisine_id`)
 		(0018, 'South African', 0003),
 		(0019, 'North American', 0004),
 		(0021, 'Latin American', 0004);
+
+
+INSERT INTO `dishes`.`category` (`id`,`name`)
+	VALUES
+		(0001, 'Appetizers'),
+		(0002, 'Pasta'),
+		(0003, 'Salads'),
+		(0004, 'Soups'),
+		(0005, 'Bread'),
+		(0006, 'Desserts'),
+		(0007, 'Stir-Fry'),
+		(0008, 'Seafood'),
+		(0009, 'Meats'),
+		(0010, 'Poultry');

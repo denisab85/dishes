@@ -1,16 +1,17 @@
 package com.denisab85.dishes.entities;
 
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -19,9 +20,11 @@ import lombok.Setter;
 
 @Entity
 @Getter
-@RequiredArgsConstructor
+@NaturalIdCache
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @NoArgsConstructor
-public class Dish {
+@RequiredArgsConstructor
+public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,24 +35,24 @@ public class Dish {
 	@NonNull
 	private String name;
 
-	@ManyToMany
-	@JoinTable(name = "dish_category", joinColumns = @JoinColumn(name = "dish_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-	private Set<Category> categories = new HashSet<>();
+	@ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
+	private Set<Dish> dishes;
+
+	//Getters and setters omitted for brevity
 
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
-
 		if (o == null || getClass() != o.getClass())
 			return false;
-
-		Dish that = (Dish) o;
-		return Objects.equals(this.name, that.name);
+		Category category = (Category) o;
+		return Objects.equals(name, category.name);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.name);
+		return Objects.hash(name);
 	}
+
 }

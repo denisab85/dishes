@@ -33,6 +33,6 @@ public class Place {
 	@JoinColumn(referencedColumnName = "id")
 	@Getter
 	@Setter
-	private PlaceType placeType;
+	private Type placeType;
 
 }
